@@ -1,0 +1,7 @@
+
+feeds:
+  - https://news.yahoo.co.jp/rss/topics/top-picks.xml
+  - https://rss.asahi.com/rss/asahi/newsheadlines.rdf
+  - https://www3.nhk.or.jp/rss/news/cat0.xml
+  - https://www.theverge.com/rss/index.xml
+  - https://feeds.bbci.co.uk/news/world/rss.xml
