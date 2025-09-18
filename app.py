@@ -1,19 +1,23 @@
 # app.py（先頭）
 import os, sys
 from dotenv import load_dotenv, find_dotenv
-
-
-load_dotenv(find_dotenv(usecwd=True)) # override=False なら上書きしない
+from pathlib import Path
 
 # スクリプトのあるディレクトリを基準にする
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-os.chdir(BASE_DIR)  # ← どこから実行してもプロジェクト直下がCWDになる
+BASE_DIR = Path(__file__).resolve().parent
+os.chdir(BASE_DIR)
 
-# .env を確実に読む
-DOTENV_PATH = os.path.join(BASE_DIR, ".env")
+# プロジェクト直下の .env を確実に読み込む（既存の環境変数より優先させたいなら override=True）
+DOTENV_PATH = BASE_DIR / ".env"
+load_dotenv(dotenv_path=DOTENV_PATH, override=False)
+
+
+# デバッグ出力（ログに残る）
+print("X_API_KEY:", "set" if os.getenv("X_API_KEY") else "MISSING")
+
 
 os.environ.pop("OLLAMA_MODEL", None)
-os.environ["OLLAMA_MODEL"] = "llama3" 
+os.environ["OLLAMA_MODEL"] = "elyza-llama3-8b" 
 
 from summarizer import summarize_for_x
 from x_client import XClient
